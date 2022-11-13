@@ -42,3 +42,10 @@ FROM [dbo].[MetaData] MD
 INNER JOIN [dbo].[DetailData] DD
 	ON MD.Id = DD.MetaDataId
 		AND MD.Id = 2
+
+-- Compression specification is not necessary
+SELECT TOP 100 *
+FROM OPENROWSET(BULK '/metadata/',
+                DATA_SOURCE= 'ParquetStorage', --> Root URL is in LOCATION of DATA SOURCE
+                FORMAT= 'PARQUET'
+				) AS [file]

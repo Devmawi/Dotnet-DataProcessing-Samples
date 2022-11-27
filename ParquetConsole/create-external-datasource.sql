@@ -1,4 +1,12 @@
-﻿CREATE EXTERNAL DATA SOURCE ParquetStorage
+CREATE MASTER KEY ENCRYPTION BY PASSWORD = '<password>' ;
+
+CREATE DATABASE SCOPED CREDENTIAL AccessAzureInvoices
+WITH
+  IDENTITY = 'SHARED ACCESS SIGNATURE',
+  -- Remove ? from the beginning of the SAS token
+  SECRET = '<azure_shared_access_signature>' ;
+
+CREATE EXTERNAL DATA SOURCE ParquetStorage
 WITH
   ( LOCATION = 'adls://<STORAGE_ACCOUNT_NAME>.dfs.core.windows.net/<FOLDER>' ,
     CREDENTIAL = AzureStorageCredential ,
